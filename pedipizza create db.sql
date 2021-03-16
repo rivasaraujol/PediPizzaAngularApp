@@ -1,0 +1,40 @@
+DELIMITER
+	//
+DROP DATABASE IF EXISTS pedipizza //
+CREATE DATABASE pedipizza //
+
+CREATE TABLE pedipizza.usuarios(
+telefono VARCHAR(30) NOT NULL,
+nombre VARCHAR(50),
+cedula VARCHAR(18),
+direccion VARCHAR(200),
+tipo BOOLEAN NOT NULL,
+PRIMARY KEY(telefono)
+)ENGINE = INNODB;//
+
+CREATE TABLE pedipizza.platos(
+id INT NOT NULL AUTO_INCREMENT,
+nombre VARCHAR(50) NOT NULL,
+descripcion VARCHAR(500) NOT NULL,
+precio DOUBLE NOT NULL,
+img VARCHAR(100),
+existencia INT NOT NULL, 
+PRIMARY KEY(id)
+)ENGINE = INNODB;//
+
+CREATE TABLE pedipizza.pedidos(
+id INT NOT NULL AUTO_INCREMENT,
+idusuario VARCHAR(30) NOT NULL,
+img BLOB NOT NULL,
+validado BOOLEAN NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY (idusuario) REFERENCES usuarios(telefono) ON DELETE CASCADE
+)ENGINE = INNODB;//
+
+CREATE TABLE pedipizza.platospedidos(
+id INT NOT NULL AUTO_INCREMENT,
+idpedido INT NOT NULL,
+idplato INT NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY (idpedido) REFERENCES pedidos(id) ON DELETE CASCADE
+)ENGINE = INNODB;//

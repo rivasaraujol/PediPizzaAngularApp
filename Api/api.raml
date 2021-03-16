@@ -1,0 +1,233 @@
+#%RAML 1.0
+title: pedipizza RAML
+baseUri: http://localhost:3018/api
+
+types:
+    plato:
+        type: object
+        properties:
+            id:
+                type: number
+                required: false
+            nombre:
+                type: string
+                required: true
+            descripcion:
+                type: string
+                required: true
+            precio:
+                type: number
+                required: true
+            img:
+                type: string
+                required: false
+    platos:
+        type: array
+        items: plato
+    pedido:
+        type: object
+        properties:
+            id:
+                type: number
+                required: false
+            nombre:
+                type: string
+                required: false
+            cedula:
+                type: string
+                required: false
+            direccion:
+                type: string
+                required: false
+            telefono:
+                type: string
+                required: true
+            img:
+                type: string
+                required: true
+            validado:
+                type: boolean
+                required: true
+    pedidos:
+        type: array
+        items: pedidoext
+    platopedido:
+        type: object
+        properties:
+            id:
+                type: number
+                required: false
+            idpedido:
+                type: number
+                required: true
+            idplato:
+                type: number
+                required: true
+    platospedidos:
+        type: array
+        items: platopedido
+
+/carta:
+    get:
+        description: Obtiene un listado de los platos
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: platos
+                        example: !include platos.sample
+            500:
+                description: Error de lectura
+                body:
+                    application/json:
+                        example: { "message": "Error obteniendo carta" }
+    post:
+        description: Inserta un nuevo plato en la aplicacion
+        responses:
+            201:
+                description: Elemento insertado en la base de datos
+                body:
+                    application/json:
+                        example: { "message": "Elemento insertado con exito" }
+            500:
+                description: Error de insercion
+                body:
+                    application/json:
+                        example: { "message": "Error insertando plato" }
+    /{id}:
+        get:
+            description: Obteniendo un elemento especifico
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: plato
+                            example: !include plato.sample
+                404:
+                    body:
+                        application/json:
+                            example: { "message": "Plato con id <id> no encontrado" }
+                500:
+                    body:
+                        application/json:
+                            example: { "message": "Error en la busqueda del plato" }
+        put:
+            description: Actualizacion de un elemento existente
+            responses:
+                200:
+                    body:
+                        application/json:
+                            example: { "message": "Elemento modificado con exito" }
+                404:
+                    body:
+                        application/json:
+                            example: { "message": "Plato con id <id> no encontrado" }
+                500:
+                    body:
+                        application/json:
+                            example: { "message": "Error en la modificacion del plato" }
+        delete:
+            description: Eliminacion de un elemento
+            responses:
+                200:
+                    body:
+                        application/json:
+                            example: { "message": "Elemento eliminado con exito" }
+                404:
+                    body:
+                        application/json:
+                            example: { "message": "Plato con id <id> no encontrado" }
+                500:
+                    body:
+                        application/json:
+                            example: { "message": "Error en la eliminacion del plato" }
+
+/pedido:
+    get:
+        description: Obtiene un listado de los pedidos
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: pedidosext
+                        example: !include pedidos.sample
+            500:
+                description: Error de lectura
+                body:
+                    application/json:
+                        example: { "message": "Error obteniendo pedidos" }
+    post:
+        description: Elemento insertado en la base de datos
+        responses:
+            201:
+                body:
+                    application/json:
+                        example: { "message": "Pedido creado con exito" }
+            500:
+                body:
+                    application/json:
+                        example: { "message": "Error en la creacion de pedido" }
+    /{id}:
+        get:
+            description: Obteniendo detalles de un pedido
+            responses:
+                200:
+                    body:
+                      application/json:
+                            type: pedidoext
+                            example: !include pedido.sample
+                404:
+                    body:
+                        application/json:
+                            example: { "message": "Pedido con id <id> no encontrado" }
+                500:
+                    body:
+                        application/json:
+                            example: { "message": "Error en la busqueda del pedido" }
+        delete:
+            description: Eliminando pedido
+            responses:
+                200:
+                    body:
+                        application/json:
+                            example: { "message": "Pedido eliminado con exito" }
+                404:
+                    body:
+                        application/json:
+                            example: { "message": "Pedido con id <id> no encontrado" }
+                500:
+                    body:
+                        application/json:
+                            example: { "message": "Error en la eliminacion del pedido" }
+        /platos:
+            get:
+                description: Obtiene un listado de los platos de un pedido
+                responses:
+                    200:
+                        body:
+                            application/json:
+                                type: platospedidos
+                                example: !include platospedidos.sample
+                    500:
+                        description: Error de lectura
+                        body:
+                            application/json:
+                                example: { "message": "Error obteniendo platos" }
+
+/aprobar
+    /{id}:
+        put:
+            description: Aprobacion del pago de un pedido externo
+            responses:
+                200:
+                    body:
+                        application/json:
+                            example: { "message": "Pedido aprovado con exito" }
+                404:
+                    body:
+                        application/json:
+                            example: { "message": "Pedido con id <id> no encontrado" }
+                500:
+                    body:
+                        application/json:
+                            example: { "message": "Error aplicando la validacion del pedido" }

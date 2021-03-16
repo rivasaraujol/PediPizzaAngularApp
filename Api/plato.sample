@@ -1,0 +1,7 @@
+{
+  "id": 0,
+  "nombre": "Consome de pollo",
+  "descripcion": "Hervido de pollo con vegetales",
+  "precio": 4.20,
+  "imagen": "src/img/calditopollo.jpeg"
+}

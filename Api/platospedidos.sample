@@ -1,0 +1,23 @@
+[
+  {
+  "id": 0,
+  "idpedido": 12,
+  "idplato": 1,
+  "nombre": "Carrillera de res",
+  "img": "src/img/carrillerares.jpeg"
+  },
+  {
+  "id": 1,
+  "idpedido": 12,
+  "idplato": 0,
+  "nombre": "Consome de pollo",
+  "img": "src/img/calditopollo.jpeg"
+  },
+  {
+  "id": 2,
+  "idpedido": 12,
+  "idplato": 2,
+  "nombre": "Ensalada cesar",
+  "img": "src/img/caesar.jpeg"
+  }
+]

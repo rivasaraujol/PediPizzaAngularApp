@@ -1,0 +1,29 @@
+[
+  {
+    "id": 0,
+    "nombre": "Antonio Miguel Perez Gil",
+    "cedula": "12345678",
+    "direccion": "",
+    "telefono": "231-1234567",
+    "img": "blob",
+    "validado": false
+  },
+  {
+    "id": 1,
+    "nombre": "Yoni Jose Bravo",
+    "cedula": "87654321",
+    "direccion": "plata2",
+    "telefono": "231-7654321",
+    "img": "blob",
+    "validado": false
+  },
+  {
+    "id": 2,
+    "nombre": "",
+    "cedula": "",
+    "direccion": "",
+    "telefono": "231-1928374",
+    "img": "blob",
+    "validado": false
+  }
+]
