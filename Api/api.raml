@@ -30,16 +30,7 @@ types:
             id:
                 type: number
                 required: false
-            nombre:
-                type: string
-                required: false
-            cedula:
-                type: string
-                required: false
-            direccion:
-                type: string
-                required: false
-            telefono:
+            idusuario:
                 type: string
                 required: true
             img:
@@ -50,7 +41,7 @@ types:
                 required: true
     pedidos:
         type: array
-        items: pedidoext
+        items: pedido
     platopedido:
         type: object
         properties:
@@ -66,6 +57,30 @@ types:
     platospedidos:
         type: array
         items: platopedido
+    usuario:
+        type: object
+        properties:
+            telefono:
+                type: string
+                required: true
+            pass:
+                type: string
+                required: true
+            nombre:
+                type: string
+                required: false
+            cedula:
+                type: string
+                required: false
+            direccion:
+                type: string
+                required: false
+            tipo:
+                type: boolean
+                required: true
+    usuarios:
+        type: array
+        items: usuario
 
 /carta:
     get:
@@ -149,7 +164,7 @@ types:
             200:
                 body:
                     application/json:
-                        type: pedidosext
+                        type: pedidos
                         example: !include pedidos.sample
             500:
                 description: Error de lectura
@@ -174,7 +189,7 @@ types:
                 200:
                     body:
                       application/json:
-                            type: pedidoext
+                            type: pedido
                             example: !include pedido.sample
                 404:
                     body:
@@ -214,20 +229,112 @@ types:
                             application/json:
                                 example: { "message": "Error obteniendo platos" }
 
-/aprobar
+/usuario:
+    get:
+        description: Obtiene un listado de los usuarios
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: usuarios
+                        example: !include usuarios.sample
+            500:
+                description: Error de lectura
+                body:
+                    application/json:
+                        example: { "message": "Error obteniendo usuarios" }
+    post:
+        responses:
+            201:
+                description: Elemento insertado en la base de datos
+                body:
+                    application/json:
+                        example: { "message": "Usuario creado con exito" }
+            409:
+                body:
+                    application/json:
+                        example: { "message": "Nombre de usuario duplicado en base de datos" }
+            500:
+                body:
+                    application/json:
+                        example: { "message": "Error en la creacion de usuario" }
     /{id}:
-        put:
-            description: Aprobacion del pago de un pedido externo
+        get:
             responses:
                 200:
                     body:
-                        application/json:
-                            example: { "message": "Pedido aprovado con exito" }
+                      application/json:
+                            type: usuario
+                            example: !include usuario.sample
                 404:
                     body:
                         application/json:
-                            example: { "message": "Pedido con id <id> no encontrado" }
+                            example: { "message": "Usuario con id <id> no encontrado" }
                 500:
                     body:
                         application/json:
-                            example: { "message": "Error aplicando la validacion del pedido" }
+                            example: { "message": "Error en la busqueda del usuario" }
+        put:
+            responses:
+                200:
+                    description: Elemento modificado en la base de datos
+                    body:
+                        application/json:
+                            example: { "message": "Usuario modificado con exito" }
+                404:
+                    body:
+                        application/json:
+                            example: { "message": "Usuario con id <id> no encontrado" }
+                500:
+                    body:
+                        application/json:
+                            example: { "message": "Error en la modificacion del usuario" }
+        delete:
+            responses:
+                200:
+                    description: Usuario eliminado en la base de datos
+                    body:
+                        application/json:
+                            example: { "message": "Usuario eliminado con exito" }
+                404:
+                    body:
+                        application/json:
+                            example: { "message": "Usuario con id <id> no encontrado" }
+                500:
+                    body:
+                        application/json:
+                            example: { "message": "Error en la eliminacion del usuario" }
+
+/login:
+    post:
+        description: Comprobacion de la existencia de un usuario en el sistema
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: { "message": "OK" }
+            404:
+                body:
+                    application/json:
+                        example: { "message": "Usuario no encontrado" }
+            500:
+                body:
+                    application/json:
+                        example: { "message": "Error en la comprobacion de usuario" }
+
+/aprobar/{id}:
+    put:
+        description: Aprobacion del pago de un pedido externo
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: { "message": "Pedido aprovado con exito" }
+            404:
+                body:
+                    application/json:
+                        example: { "message": "Pedido con id <id> no encontrado" }
+            500:
+                body:
+                    application/json:
+                        example: { "message": "Error aplicando la validacion del pedido" }

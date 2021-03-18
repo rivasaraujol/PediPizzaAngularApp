@@ -10,6 +10,7 @@ import { PedidoComponent } from './pedido/pedido.component';
 import { AdminComponent } from './admin/admin.component';
 import { InventarioComponent } from './inventario/inventario.component';
 import { TestsComponent } from './tests/tests.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TestsComponent } from './tests/tests.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

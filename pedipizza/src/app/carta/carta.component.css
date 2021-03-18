@@ -1,0 +1,152 @@
+.d-flex{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    bottom: 10px;
+}
+.cuerpo{
+    margin: 3px;
+    border-radius: 20px;
+    background-image: url("../../assets/img/PAG2/fondo.png");
+    background-repeat: no-repeat;
+    top: 3px;
+    bottom: 20px;
+    left: 3px;
+    right: 3px;
+   
+}
+header{
+    padding-top: 20px;
+    color: white;
+    width: 100%;
+    justify-content: right; 
+    bottom: 0px;
+}
+.w70{
+    width: 70%;
+    text-align: right;
+}
+.w30{
+    width: 30%;
+    text-align: center;
+}
+.w40{
+    width: 40%;
+    text-align: center;
+}
+.w20{
+    width: 20%;
+    text-align: center;
+}
+.w10{
+    width: 10%;
+    text-align: center;
+}
+.w50{
+    width: 50%;
+    text-align: center;
+}
+.w60{
+    width: 60%;
+    text-align: center;
+}
+.w100{
+    width: 100%;
+}
+.max-h{
+    max-height: 20px;
+}
+.mg-top{
+    margin-top: 40px;
+}
+.imgcarrito{
+    margin-top: 8px;
+}
+#btndiriz{
+    font-size: 50px;
+    padding-top: 40px;
+}
+#btndirder{
+    font-size: 50px;
+    padding-top: 40px;
+}
+.datos{
+    color: white;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    margin-top: 30px;
+    min-height: 230px;
+    background-image: url("../../assets/img/PAG2/cosa.png");
+    background-size: 100.5%;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+h2{
+    color: yellow;
+    margin-top: 60px;
+}
+.signo{
+    color: yellow;
+}
+button{
+    color: white;
+    background: none;
+    border-radius: 25px;
+    width: 150px;
+    border: yellow 3px solid;
+}
+#carro{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    min-height: 100%;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.74);
+}
+.contenido-carro{
+    position: fixed;
+    top: 0px;
+    left: 30%;
+    z-index: 2;
+    background: rgb(31, 31, 31);
+    width: 70%;
+    height: 100%;
+    min-height: 100%;
+    color: white;
+    padding-left: 5px;
+    overflow-y: scroll;
+
+}
+.volverM{
+
+    color: white;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 30%;
+    min-height: 100%;
+    text-align: center;
+    padding-top: 50%;
+}
+
+.textY{
+    color: yellow;
+}
+
+.nombreitem{
+    padding-top: 20px;
+    padding-bottom: 0px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.textCenter{
+    text-align: center;
+}
+
+.oculto{
+    display: none;
+}

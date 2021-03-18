@@ -1,0 +1,42 @@
+
+.cuerpo{
+    position: fixed;
+    background-image: url("../../assets/img/PAG1/fondo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.carta{
+    padding-top: 25px;
+    margin: 5px;
+    min-height: 10px;
+    background: rgb(1, 9, 44);
+    height: 300px;
+    border-radius: 20px;
+}
+
+.error{
+    position: fixed;
+    top: 40%;
+    left: 20%;
+    right: 20%;
+    bottom: 25%;
+    background: rgb(22, 22, 22);
+    border: yellow 3px solid;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    padding: 5%;
+}
+
+.oculto{
+    display: none;
+}
+
+.mt10{
+  margin-top: 20px;  
+}

@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
+  public errorvista = false;
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  Loguear(): void{
+    this.errorvista = !this.errorvista;
+  }
 }

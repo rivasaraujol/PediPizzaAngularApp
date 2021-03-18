@@ -5,6 +5,7 @@ CREATE DATABASE pedipizza //
 
 CREATE TABLE pedipizza.usuarios(
 telefono VARCHAR(30) NOT NULL,
+pass VARCHAR(1024) NOT NULL,
 nombre VARCHAR(50),
 cedula VARCHAR(18),
 direccion VARCHAR(200),
@@ -27,8 +28,7 @@ id INT NOT NULL AUTO_INCREMENT,
 idusuario VARCHAR(30) NOT NULL,
 img BLOB NOT NULL,
 validado BOOLEAN NOT NULL,
-PRIMARY KEY(id),
-FOREIGN KEY (idusuario) REFERENCES usuarios(telefono) ON DELETE CASCADE
+PRIMARY KEY(id)
 )ENGINE = INNODB;//
 
 CREATE TABLE pedipizza.platospedidos(
