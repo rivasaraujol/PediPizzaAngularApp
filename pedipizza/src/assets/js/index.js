@@ -1,14 +1,14 @@
 ///////////////////////////////////////////////////////////////
 /////////////////////////// CARTA /////////////////////////////
 ///////////////////////////////////////////////////////////////
-function GetCarta() {
-  $.ajax({
-    url: 'http://localhost:3018/api/carta',
-    contentType: 'application/json',
-    success: function (response) {
-      console.log(response);
-    }
-  })
+function GetCarta(){
+	$.ajax({
+		url: 'http://localhost:3018/api/carta',
+		contentType: 'application/json',
+		success: function(response){
+			console.log(response);
+		}
+	});
 }
 
 function AddToCarta() {

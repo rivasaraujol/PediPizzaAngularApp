@@ -7,16 +7,18 @@ import {CartaComponent} from "./carta/carta.component";
 import {InventarioComponent} from "./inventario/inventario.component";
 import {PedidoComponent} from "./pedido/pedido.component";
 import {TestsComponent} from "./tests/tests.component";
+import { PagarComponent } from './pagar/pagar.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'home', component: HomeComponent},
   {path: 'inicio', component: InicioComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'carta', component: CartaComponent},
   {path: 'inventario', component: InventarioComponent},
   {path: 'pedido', component: PedidoComponent},
-  {path: 'tests', component: TestsComponent}
+  {path: 'tests', component: TestsComponent},
+  {path: 'pagar', component: PagarComponent}
 ];
 
 @NgModule({

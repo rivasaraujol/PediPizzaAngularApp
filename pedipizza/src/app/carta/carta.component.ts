@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {CartaService} from "../shared/carta/carta.service";
+import { Router } from '@angular/router';
+import {CartaService} from "../shared/carta.service";
+import { PedidosService } from '../shared/pedidos.service';
 
 @Component({
   selector: 'app-carta',
@@ -16,9 +18,16 @@ export class CartaComponent implements OnInit {
     {id: 0, nombre: 'Pizza de pollo', descripcion: 'masa fina, salsa, queso y pollo', precio: 4.20, img: 'img', existencia: 1}
   ];
   public pedido: any = [];
+  private pedidosService: PedidosService;
+  private router: Router;
 
-  constructor(protected cartaService: CartaService) {
-    cartaService.GetCarta().subscribe(o => {
+  constructor(
+    protected cartaService: CartaService,
+    protected pS: PedidosService,
+    protected rt: Router) {
+    this.pedidosService = pS;
+    this.router = rt;
+    cartaService.GetCarta().subscribe((o: any) => {
       this.platos = o;
     });
   }
@@ -59,6 +68,38 @@ export class CartaComponent implements OnInit {
     this.pedido.push({id: this.i, pizza: this.platos[this.n]});
     this.CalcularMontoTotal();
     this.i ++;
+    
+    if(this.pedidosService.pedido?.platos === undefined){
+      this.pedidosService.pedido = {
+        telefono: '',
+        img: '',
+        platos: [{
+          cantidad: 1,
+          nombre: this.platos[this.n].nombre,
+          descripcion: this.platos[this.n].descripcion,
+          precio: this.platos[this.n].precio,
+          img: this.platos[this.n].img
+        }]
+      }
+    }
+    else {
+      let flip = false;
+      this.pedidosService.pedido.platos.forEach(p => {
+        if(p.nombre === this.platos[this.n].nombre){
+          p.cantidad += 1;
+          flip = true;
+        }
+      })
+      if (!flip) {
+        this.pedidosService.pedido?.platos.push({
+          cantidad: 1,
+          nombre: this.platos[this.n].nombre,
+          descripcion: this.platos[this.n].descripcion,
+          precio: this.platos[this.n].precio,
+          img: this.platos[this.n].img
+        });
+      }
+    }
   }
 
   EliminarPizza(pos: number): void {
@@ -67,7 +108,6 @@ export class CartaComponent implements OnInit {
   }
 
   Pagar(): void {
-    console.log('pagado');
+    this.router.navigate(['pagar']);
   }
 }
-

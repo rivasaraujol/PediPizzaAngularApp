@@ -10,7 +10,7 @@
     bottom: 0px;
 }
 
-.carta{
+.carta{ 
     padding-top: 25px;
     margin: 5px;
     min-height: 10px;
@@ -39,4 +39,14 @@
 
 .mt10{
   margin-top: 20px;  
+}
+
+.imglogo{
+    width: 100%;
+}
+
+@media screen and (min-width: 800px) {
+    .imglogo{
+        width: 20%;
+    }
 }

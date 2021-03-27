@@ -10,7 +10,10 @@ import { PedidoComponent } from './pedido/pedido.component';
 import { AdminComponent } from './admin/admin.component';
 import { InventarioComponent } from './inventario/inventario.component';
 import { TestsComponent } from './tests/tests.component';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { MenuadminComponent } from './shared/menuadmin/menuadmin.component';
+import { PagarComponent } from './pagar/pagar.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +24,15 @@ import {HttpClientModule} from "@angular/common/http";
     PedidoComponent,
     AdminComponent,
     InventarioComponent,
-    TestsComponent
+    TestsComponent,
+    MenuadminComponent,
+    PagarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

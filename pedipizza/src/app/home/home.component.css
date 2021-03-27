@@ -3,7 +3,7 @@
     border-radius: 20px;
     background: rgb(22, 20, 59);
     top: 3px;
-    bottom: 0;
+    bottom: 0px;
     position: fixed;
 }
 .inicio{
@@ -20,11 +20,11 @@
     display: flexbox;
     text-align: center;
     justify-content: center;
-}
+} 
 img{
-
+   
     width: 150px;
-    margin: 0;
+    margin: 0px;
     margin-bottom: 30px;
 }
 h1{
@@ -71,4 +71,10 @@ footer section{
     display: flex;
     justify-content: center;
     text-align: center;
+}
+@media screen and (min-width: 800px) {
+    p{
+        margin-left: 30%;
+        margin-right: 30%;
+    }
 }

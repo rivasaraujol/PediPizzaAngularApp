@@ -1,0 +1,42 @@
+<app-menuadmin [ngClass]="{'oculto': !menuOpen}" (click)="ActivarMenu()" class="Menu oculto "></app-menuadmin>
+<div class=" d-flex-i text-white text-center fondo w100">
+    <div id="menu" class=" w100 d-flex-i text-center">
+        <div class="w20"></div>
+        <div class="w60">
+            <h2>CartaPizzas</h2>
+        </div>
+        <div  (click)="ActivarMenu()" class="w20">
+            *
+        </div> 
+        <div class="barra-busqueda">
+            <input type="text" class="Busqueda w100" name="textoBuscar" id="textobuscar" placeholder="Nombre" [(ngModel)]="busqueda">
+        </div>
+        <div class="boton-buscar">
+            <button id="buscar" (click)="Search()">B</button>
+        </div>
+    </div>
+    
+    
+    <div id="lista" class="w100 d-flex">
+        <div id="itemPizza" class="d-flex-i" *ngFor="let pedido of pedidos">
+            <div class="w100 paddin-top-datos d-flex-i text-align-left">
+                <div class="w80">
+                    <h6 class="ty">{{pedido.nombre}}</h6>
+                </div>
+                <div class="w20">
+                    <h6 class="ty">{{pedido.id}}</h6>
+                </div>
+                <div class="w100" *ngFor="let pizza of pedido.platosPedidos">
+                        {{pizza.nombre}} ({{pizza.cantidad}}) {{pizza.precio * pizza.cantidad | currency}}
+                </div>
+                <div class="w80">
+                    {{pedido.telefono}}
+                </div>
+                <div class="w20">
+                    <h6 class="ty ">{{CalcularTotal(pedido.platosPedidos) | currency}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>

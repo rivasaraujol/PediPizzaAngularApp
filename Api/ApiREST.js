@@ -26,10 +26,10 @@ app.use((req, res, next) =>{
 
 app.route("/api/login")
     .post((req, res) =>{
-        connection.query("SELECT telefono FROM usuarios WHERE usuarios.telefono = ? && usuarios.pass = ? && usuarios.tipo = true", [req.body.telefono, req.body.pass], (error, usuario) => {
+        connection.query("SELECT telefono FROM usuarios WHERE usuarios.telefono = ? && usuarios.pass = ?", [req.body.telefono, req.body.pass], (error, usuario) => {
             if (error) { return res.status(500).send("Error en la comprobacion de usuario"); }
             if (usuario.length < 1) { return res.status(404).send("Usuario no encontrado"); }
-            res.status(200).send("OK");
+            res.status(200).json("OK");
         });
     });
 
@@ -41,11 +41,17 @@ app.route("/api/carta")
         });
     })
     .post((req,res) => {
-       connection.query("INSERT INTO platos (nombre, descripcion, precio, img, existencia) VALUES (?,?,?,?,0)", [req.body.nombre, req.body.descripcion, req.body.precio, req.body.img], (error) => {
+       connection.query("INSERT INTO platos (nombre, descripcion, precio, img, existencia) VALUES (?,?,?,?,?)", [req.body.nombre, req.body.descripcion, req.body.precio, req.body.img, req.body.existencia], (error) => {
            if (error) { return res.status(500).send("Error insertando plato"); }
-           res.status(201).send("Elemento insertado con exito");
+           res.status(201).json("Elemento insertado con exito");
        })
     });
+app.get("/api/carta/:search", (req, res) => {
+    connection.query("SELECT * FROM platos WHERE nombre = ?", [req.params.search], (error, carta) => {
+        if (error) { return res.status(500).send("Error obteniendo carta"); }
+        res.status(200).json(carta);
+    });
+});
 app.route("/api/carta/:id")
     .get((req,res) => {
         connection.query("SELECT * FROM platos WHERE platos.id = ?", req.params.id, (error, plato) => {
@@ -58,14 +64,14 @@ app.route("/api/carta/:id")
         connection.query("UPDATE platos SET nombre = ?, descripcion = ?, precio = ?, img = ?, existencia = ? WHERE platos.id = ?", [req.body.nombre, req.body.descripcion, req.body.precio, req.body.img, req.body.existencia, req.params.id], (error, result) => {
             if (error) { return res.status(500).send("Error en la modificacion del plato"); }
             if (result.affectedRows < 1) { return res.status(404).send("Plato con id " + req.params.id + " no encontrado"); }
-            res.status(200).send("Elemento modificado con exito");
+            res.status(200).json("Elemento modificado con exito");
         });
     })
     .delete((req,res) => {
         connection.query("DELETE FROM platos WHERE platos.id = ?", req.params.id, (error, result) => {
             if (error) { return res.status(500).send("Error en la eliminacion del plato"); }
             if (result.affectedRows < 1) { return res.status(404).send("Plato con id " + req.params.id + " no encontrado"); };
-            res.status(200).send("Elemento eliminado con exito");
+            res.status(200).json("Elemento eliminado con exito");
         });
     });
 
@@ -77,24 +83,15 @@ app.route("/api/pedido")
         });
     })
     .post((req,res) => {
-        if (req.body.platos.length > 0){
+        if (req.body.platos && req.body.platos.length > 0){
             function InsertPedido() {
                 return new Promise((resolve, reject) => {
-                    connection.query("INSERT INTO pedidos (idusuario, img, validado) VALUES (?,?,false)", [req.body.idusuario, req.body.img], (error, result) => {
+                    connection.query("INSERT INTO pedidos (telefono, nombre, cedula, direccion, img, validado) VALUES (?,?,?,?,?,false)", [req.body.telefono, req.body.nombre, req.body.cedula, req.body.direccion, req.body.img], (error, result) => {
                         if (error) { return reject(error); }
                         resolve(result);
                     })
                 })
             }
-            function MySQLAsPromise(sql){
-                return new Promise((resolve, reject) => {
-                    connection.query(sql, (error,result) => {
-                        if (error) { return reject(error); }
-                        resolve(result);
-                    })
-                })
-            }
-
             function GetPedidoID(table){
                 return new Promise((resolve, reject) => {
                         connection.query("SELECT id FROM " + table + " WHERE Id=(SELECT LAST_INSERT_ID())", (error,result) => {
@@ -108,12 +105,12 @@ app.route("/api/pedido")
                     let values = '';
                     for (let i = 0; i < req.body.platos.length; i++) {
                         if (i < req.body.platos.length - 1) {
-                            values += '(' + id + ',' + req.body.platos[i].plato + '),';
+                            values += '(' + req.body.platos[i].cantidad + ',' + id + ',\'' + req.body.platos[i].nombre + '\',\'' + req.body.platos[i].descripcion + '\',' + req.body.platos[i].precio + ',\'' + req.body.platos[i].img +'\'),';
                         } else {
-                            values += '(' + id + ',' + req.body.platos[i].plato + ')';
+                            values += '(' + req.body.platos[i].cantidad + ',' + id + ',\'' + req.body.platos[i].nombre + '\',\'' + req.body.platos[i].descripcion + '\',' + req.body.platos[i].precio + ',\'' + req.body.platos[i].img +'\')';
                         }
                     }
-                    connection.query("INSERT INTO " + table + " (idpedido, idplato) VALUES " + values, (error, result) => {
+                    connection.query("INSERT INTO " + table + " (cantidad, idpedido, nombre, descripcion, precio, img) VALUES " + values, (error, result) => {
                         if (error) { return reject(error); }
                         resolve(result);
                     });
@@ -126,7 +123,7 @@ app.route("/api/pedido")
             InsertPedido().then(
                 GetPedidoID('pedidos').then(
                     o => InsertLineasPedido(o,'platospedidos').then(() => {
-                        res.status(201).send("Pedido creado con exito");
+                        res.status(201).json("Pedido creado con exito");
                     }).catch((err) => {
                         ThrowFallo(err)
                     })
@@ -134,6 +131,9 @@ app.route("/api/pedido")
                     ThrowFallo(err)
                 })
             ).catch((err) => ThrowFallo(err));
+        }
+        else{
+            return res.status(500).send("Error en la creacion de pedido");
         }
     });
 app.route("/api/pedido/:id")
@@ -148,12 +148,12 @@ app.route("/api/pedido/:id")
         connection.query("DELETE FROM pedidos WHERE pedidos.id = ?", req.params.id, (error, result) => {
             if (error) { console.log(error); return res.status(500).send("Error en la eliminacion del pedido"); }
             if (result.affectedRows < 1) { return res.status(404).send("Pedido con id " + req.params.id + " no encontrado"); };
-            res.status(200).send("Pedido eliminado con exito");
+            res.status(200).json("Pedido eliminado con exito");
         });
     });
 app.route("/api/pedido/:id/platos")
     .get((req,res) => {
-        connection.query("SELECT a.id, a.idpedido, a.idplato, b.nombre, b.img FROM platospedidos AS a JOIN platos AS b WHERE a.idpedido = ? AND a.idplato = b.id", req.params.id, (error, platospedido) => {
+        connection.query("SELECT * FROM platospedidos WHERE idpedido = ?", req.params.id, (error, platospedido) => {
             if (error) { return res.status(500).send("Error obteniendo platos"); }
             res.status(200).json(platospedido);
         });
@@ -172,7 +172,7 @@ app.route("/api/usuario")
             if (error.code == "ER_DUP_ENTRY") { return res.status(409).send("Telefono de usuario duplicado en base de datos"); }
             else { return res.status(500).send("Error en la creacion de usuario"); }
         }
-        res.status(201).send("Usuario creado con exito");
+        res.status(201).json("Usuario creado con exito");
     });
 });
 app.route("/api/usuario/:id")
@@ -189,22 +189,22 @@ app.route("/api/usuario/:id")
                 return res.status(500).send("Error en la modificacion del usuario");
             }
             if (result.affectedRows < 1) { return res.status(404).send("Usuario con id " + req.params.id + " no encontrado"); };
-            res.status(200).send("Usuario modificado con exito");
+            res.status(200).json("Usuario modificado con exito");
         });
     })
     .delete((req, res) =>{
         connection.query("DELETE FROM usuarios WHERE usuarios.telefono = ?", req.params.id, (error, result) => {
             if (error) { return res.status(500).send("Error en la eliminacion del usuario"); }
             if (result.affectedRows < 1) { return res.status(404).send("Usuario con id " + req.params.id + " no encontrado"); };
-            res.status(200).send("Usuario eliminado con exito");
+            res.status(200).json("Usuario eliminado con exito");
         });
     });
 
-app.put("/api/aprobar/:id",(req,res) => {
+app.get("/api/aprobar/:id",(req,res) => {
     connection.query("UPDATE pedidos SET validado = true WHERE pedidos.id = ?", req.params.id,(error, result) => {
         if (error) { return res.status(500).send("Error aplicando la validacion del pedido"); }
         if (result.affectedRows < 1) { return res.status(404).send("Pedido con id " + req.params.id + " no encontrado"); };
-        res.status(200).send("Pedido aprovado con exito");
+        res.status(200).json("Pedido aprovado con exito");
     });
 });
 
