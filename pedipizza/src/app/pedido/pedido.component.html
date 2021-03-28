@@ -6,14 +6,12 @@
             <h2>CartaPizzas</h2>
         </div>
         <div  (click)="ActivarMenu()" class="w20">
-            *
+            <img class="btn-menu" src="./assets/img/PAG1/botonmenu.png" alt="">
         </div> 
         <div class="barra-busqueda">
-            <input type="text" class="Busqueda w100" name="textoBuscar" id="textobuscar" placeholder="Nombre" [(ngModel)]="busqueda">
+            <input type="text" class="Busqueda w100" name="textoBuscar" id="textobuscar" placeholder="Nombre" (keyup)="Buscar()" [(ngModel)]="busqueda">
         </div>
-        <div class="boton-buscar">
-            <button id="buscar" (click)="Search()">B</button>
-        </div>
+       
     </div>
     
     
@@ -24,12 +22,12 @@
                     <h6 class="ty">{{pedido.nombre}}</h6>
                 </div>
                 <div class="w20">
-                    <h6 class="ty">{{pedido.id}}</h6>
+                    <h6 class="ty id">#00{{pedido.id}}</h6>
                 </div>
                 <div class="w100" *ngFor="let pizza of pedido.platosPedidos">
                         {{pizza.nombre}} ({{pizza.cantidad}}) {{pizza.precio * pizza.cantidad | currency}}
                 </div>
-                <div class="w80">
+                <div class="ty id w80">
                     {{pedido.telefono}}
                 </div>
                 <div class="w20">

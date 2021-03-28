@@ -45,8 +45,25 @@
     width: 100%;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 600px) {
     .imglogo{
         width: 20%;
+    }
+    .cuerpo{
+        position: fixed;
+    }
+    .imglogo{
+        width: 50%;
+    }
+}
+@media screen and (min-width: 800px) {
+    .imglogo{
+        width: 10%;
+    }
+    .cuerpo{
+        position: fixed;
+    }
+    .imglogo{
+        width: 50%;
     }
 }

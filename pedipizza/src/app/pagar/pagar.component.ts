@@ -12,7 +12,7 @@ export class PagarComponent implements OnInit {
   private pedidosService: PedidosService;
   private router: Router;
   telefono = '';
-  nombre = '';
+  nombre = ''; 
   cedula = '';
   direccion = '';
   img = '';

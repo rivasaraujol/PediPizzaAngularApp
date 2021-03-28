@@ -1,3 +1,4 @@
+
 .cuerpo{
     margin: 3px;
     border-radius: 20px;
@@ -5,6 +6,11 @@
     top: 3px;
     bottom: 0px;
     position: fixed;
+}
+.cuerpo2{
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 .inicio{
     padding-top: 40px;
@@ -26,6 +32,9 @@ img{
     width: 150px;
     margin: 0px;
     margin-bottom: 30px;
+}
+img.pizza{
+    width: 100px;
 }
 h1{
     display: block;
@@ -68,13 +77,35 @@ footer{
 }
 footer section{
     padding-top: 10px;
+    width: 33%;
     display: flex;
     justify-content: center;
     text-align: center;
 }
+
 @media screen and (min-width: 800px) {
+    img{
+   
+        width: 150px;
+        margin: 0px;
+        margin-bottom: 30px;
+    }
+    img.pizza{
+        width: 230px;
+    }
     p{
         margin-left: 30%;
         margin-right: 30%;
+    }
+    footer section{
+        padding-top: 10px;
+        width: 15%;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    .footer-Encabezado{
+        font-size: 12px;
+        margin: 0px;
     }
 }

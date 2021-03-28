@@ -1,6 +1,12 @@
 .paddin-top-datos{
     padding-top: 25px;
-    padding-left: 10px;
+    
+    text-align: left;
+
+}
+.paddin-top-datos2{
+    padding-top: 25px;
+    padding-left: 15px;
 
 }
 .baff{
@@ -11,7 +17,7 @@
     background: rgb(24, 24, 24);
     border-radius: 25px;
     border: white 1px solid;
-    width: 100%;
+    width: 100%; 
 }
 .fondo{
     background-image: url("../../assets/img/PAG1/fondo.png");
@@ -19,8 +25,10 @@
     background-repeat: no-repeat;
     position: absolute;
     top: 0px;
+    width: 100%;
     bottom: 0px;
 }
+
 
 #lista{
     margin-top: 110px;
@@ -92,16 +100,17 @@ li{
     margin-top: 25px;
     margin-bottom: 5px;
 }
-.boton-buscar{
-    width: 20%;
-}
+
 .barra-busqueda{
-    width: 60%;
+    width: 80%;
 }
 .btnAgregar{
     width: 20%;
 }
-#editPizza{
+.btn-menu{
+    height: 30px;
+}
+#editPizza{ 
     position: fixed;
     z-index: 20;
     top: 0%;
@@ -110,13 +119,27 @@ li{
     right: 0px;
     width: 100%;
     background: black;
+    justify-content: center;
+}
+.textwithe{
+    color: white;
 }
 #cartaEdit{
-    width: 100%;
+    width: 80%;
     display: flex;
     text-align: center;
     justify-content: center;
 
+}
+
+#itemPizza:hover{
+    cursor: pointer;
+    -webkit-transform:scale(1.25);
+    -moz-transform:scale(1.25);
+    -ms-transform:scale(1.25);
+    -o-transform:scale(1.25);
+    transform:scale(1.25);
+    transition-timing-function: ease-in-out;
 }
 #itemPizzaEdit{
     margin-top: 30px;
@@ -132,10 +155,16 @@ li{
     border: red 3px solid;
 }
 .IMG-E{
-    width: 100%;
+    width: 50%;
 }
 .dato-e{
     width: 100%;
+}
+.dato-e input{
+    width: 60%;
+}
+.ty{
+    color: yellow;
 }
 @media screen and (min-width: 800px) {
     
@@ -145,11 +174,9 @@ li{
     .IMG-E{
         width: 50%;
     }
-    .boton-buscar{
-        width: 10%;
-    }
+  
     .barra-busqueda{
-        width: 80%;
+        width: 90%;
     }
     .btnAgregar{
         width: 10%;
@@ -179,4 +206,57 @@ li{
         0% { left: 1000px; }
         100% { left: 0px; }
       }
+    .text-align-left{
+        text-align: left;
+    }
+}
+@media screen and (min-width: 600px) {
+    
+    .dato-e input{
+        width: 100%;
+    }
+    .dato-e{
+        width: 50%;
+    }
+    .IMG-E{
+        width: 50%;
+    }
+  
+    .barra-busqueda{
+        width: 90%;
+    }
+    .btnAgregar{
+        width: 10%;
+    }
+    .btnAceptar{
+        margin-top: 200px;
+    }
+    #itemPizza{
+        margin-top: 30px;
+        background: rgb(24, 24, 24);
+        border-radius: 25px;
+        border: white 1px solid;
+        width: 30%;
+        margin-left: 20px;
+    }
+    .dato-e input{
+        width: 60%;
+    }
+    .Menu{
+        position: fixed;
+        z-index: 10;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background: rgba(0, 0, 0, 0);
+        animation: menu 0.4s;
+    }
+    @keyframes menu {
+        0% { left: 1000px; }
+        100% { left: 0px; }
+      }
+    .text-align-left{
+        text-align: left;
+    }
 }

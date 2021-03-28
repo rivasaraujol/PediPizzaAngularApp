@@ -88,3 +88,6 @@ button{
     border-style: double;
     color: white;
 }
+.btn-menu:hover{    
+    cursor: pointer;
+}

@@ -1,6 +1,28 @@
-<input [(ngModel)]="telefono">
-<input [(ngModel)]="nombre">
-<input [(ngModel)]="cedula">
-<input [(ngModel)]="direccion">
-<input [(ngModel)]="img">
-<button (click)="Enviar()">Enviar</button>
+<div class="raiz">
+    <div class="img">
+        <img src="./assets/img/PAG1/logo.png" alt="">
+    </div>
+    <div class="cuerpo">
+        <section>
+            <label>Telefono</label>
+            <input [(ngModel)]="telefono">
+            <br>
+            <label>Nombre</label>
+            <input [(ngModel)]="nombre">
+            <br>
+            <label>Cedula</label>
+            <input [(ngModel)]="cedula">
+            <br>
+            <label>direccion</label>
+            <input [(ngModel)]="direccion">
+            
+    
+        </section>
+        <section>
+            <button (click)="Enviar()">Enviar</button> 
+        </section>
+    
+    </div>
+    
+</div>
+

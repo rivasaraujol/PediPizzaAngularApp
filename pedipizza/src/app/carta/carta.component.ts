@@ -12,11 +12,12 @@ export class CartaComponent implements OnInit {
 
   private i = 0;
   public montoTotal = 0;
+  public agregado=true;
+  public EliminadoA = [false];
   public n = 0;
   public carritoOpen = false;
-  public platos = [
-    {id: 0, nombre: 'Pizza de pollo', descripcion: 'masa fina, salsa, queso y pollo', precio: 4.20, img: 'img', existencia: 1}
-  ];
+  private platosB: any = [];
+  public platos: any = [];
   public pedido: any = [];
   private pedidosService: PedidosService;
   private router: Router;
@@ -28,8 +29,13 @@ export class CartaComponent implements OnInit {
     this.pedidosService = pS;
     this.router = rt;
     cartaService.GetCarta().subscribe((o: any) => {
-      this.platos = o;
-    });
+      this.platosB = o;
+      o.forEach((pizza: any) => {
+        if (pizza.existencia !== 0){
+          this.platos.push(pizza);
+        }
+      })
+    })
   }
 
   ngOnInit(): void {
@@ -56,10 +62,12 @@ export class CartaComponent implements OnInit {
   ActivarCarrito(): void {
     this.carritoOpen = !this.carritoOpen;
   }
-
+ 
   CalcularMontoTotal(): void {
     this.montoTotal = 0;
+    this.EliminadoA = [];
     this.pedido.forEach((o: any) => {
+      this.EliminadoA.push(false);
      this.montoTotal += o.pizza.precio;
     });
   }
@@ -68,6 +76,12 @@ export class CartaComponent implements OnInit {
     this.pedido.push({id: this.i, pizza: this.platos[this.n]});
     this.CalcularMontoTotal();
     this.i ++;
+    this.agregado = !this.agregado;
+    setTimeout(() => 
+    {
+    this.agregado = !this.agregado;
+    },
+    500); 
     
     if(this.pedidosService.pedido?.platos === undefined){
       this.pedidosService.pedido = {
@@ -100,14 +114,32 @@ export class CartaComponent implements OnInit {
         });
       }
     }
+    this.platos[this.n].existencia -= 1;
+    if (this.platos[this.n].existencia === 0 && this.n > 0){
+      this.n -= 1;
+    }
+    this.platos = [];
+    this.platosB.forEach((pizza: any) => {
+      if (pizza.existencia !== 0){
+        this.platos.push(pizza);
+      }
+    })
   }
 
   EliminarPizza(pos: number): void {
-    this.pedido.splice(pos, 1);
-    this.CalcularMontoTotal();
+    this.EliminadoA[pos] = !this.EliminadoA[pos];
+    setTimeout(() => 
+    {
+      this.pedido.splice(pos, 1);
+      this.CalcularMontoTotal();
+    },
+    500); 
+    
   }
 
   Pagar(): void {
-    this.router.navigate(['pagar']);
+    if (this.platos.length > 0){
+      this.router.navigate(['pagar']);
+    }
   }
 }

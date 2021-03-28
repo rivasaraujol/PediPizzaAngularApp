@@ -2,16 +2,20 @@
     <header class="d-flex">
        <div class="w70"><h1>Menu</h1></div>
        <div class="w30" (click)="ActivarCarrito()"><img class="imgcarrito w50" src="./assets/img/PAG2/carrito.png" alt=""></div>
-       <div id="btndiriz" class="w20 mg-top" (click)="Anterior();">-</div>
-       <div class="pizza w60 mg-top"><img class="w100" src="./assets/img/PAG2/pizza.png" alt=""></div>
-       <div id="btndirder"class="w20 mg-top" (click)="Siguiente();">+</div>
+       <div id="btndiriz" class="w20 marg mg-top" (click)="Anterior();">-</div>
+       <div  class="pizza  mg-top"><img [ngClass]="{'pizzaAg': !agregado}" class="w100" src="./assets/img/PAG2/pizza.png" alt=""></div>
+       <div id="btndirder"class="w20 marg mg-top" (click)="Siguiente();">+</div>
     </header>
-    <section class="datos">
+    <section  class="datos" *ngIf="this.platos.length > 0">
        <h2>{{platos[n].nombre}}</h2>
        <p> {{platos[n].descripcion}}</p>
        <h3>{{platos[n].precio}} <span class="signo">$</span></h3>
-       <button (click)="PedidosPush()" >Agregar</button>
+       <button (click)="PedidosPush()" [ngClass]="{'pizzaAgg': !agregado}" >Agregar</button>
     </section>
+    <section  class="datos" *ngIf="this.platos.length < 1">
+        <h2>Cerrado</h2>
+        <p>Vendimos Todo</p>
+     </section> 
  </div>
 
 <div [ngClass]="{'oculto': !carritoOpen}" id="carro" class="oculto">
@@ -24,7 +28,7 @@
         <h6> total: {{montoTotal}}$</h6>
         <button (click)="Pagar()" class="btn-p">Pagar</button>
     <div *ngFor="let i of pedido; let index = index" class="w100 d-flex">
-        <div class="item w100 d-flex">
+        <div  [ngClass]="{'eliminadoA': EliminadoA[index]}"  class="item w100 d-flex">
             <div class="w100">
                 <h6 class="textY nombreitem" >{{i.pizza.nombre}}</h6>
             </div>  

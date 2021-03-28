@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartaService } from '../shared/carta.service';
+import { ChequeoService } from '../shared/chequeo.service';
 import { Pizza } from '../shared/tipodatos.model';
 
 @Component({
@@ -26,7 +28,7 @@ export class InventarioComponent implements OnInit {
   public platos: Pizza[] = [];
   private platosB: Pizza[] = [];
 
-  constructor(protected cS: CartaService) { 
+  constructor(protected router: Router, protected chequeo: ChequeoService, protected cS: CartaService) { 
     this.cartaService = cS;
     cS.GetCarta().subscribe((o: any) => {
       this.platos = o;
@@ -35,6 +37,9 @@ export class InventarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!this.chequeo.LeerGalleta()){
+      this.router.navigate(['']);
+    }
   }
   
   AgregarPizza(){

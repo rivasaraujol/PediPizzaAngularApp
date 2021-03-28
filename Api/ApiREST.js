@@ -116,6 +116,19 @@ app.route("/api/pedido")
                     });
                 })
             }
+            function RestarStock(){
+                return new Promise((resolve, reject) => {
+                    for (let i = 0;  i < req.body.platos.length; i++) {
+                        connection.query("SELECT * FROM platos WHERE platos.nombre = ?", [req.body.platos[i].nombre], (error, plato) => {
+                            if (error) { return reject(error); }
+                            connection.query("UPDATE platos SET existencia = ? WHERE id = ?", [plato[0].existencia - req.body.platos[i].cantidad, plato[0].id], (error, result) => {
+                                if (error) { return reject(error); }
+                                resolve(result);
+                            })
+                        })
+                    }
+                })
+            }
             function ThrowFallo(error){
                 console.log(error)
                 return res.status(500).send("Error en la creacion de pedido");
@@ -123,7 +136,9 @@ app.route("/api/pedido")
             InsertPedido().then(
                 GetPedidoID('pedidos').then(
                     o => InsertLineasPedido(o,'platospedidos').then(() => {
-                        res.status(201).json("Pedido creado con exito");
+                        RestarStock().then(o => {
+                            res.status(201).json("Pedido creado con exito");
+                        });
                     }).catch((err) => {
                         ThrowFallo(err)
                     })

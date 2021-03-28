@@ -1,27 +1,41 @@
 .paddin-top-datos{
     padding-top: 25px;
-    padding-left: 10px;
-
+    text-align: left;
+    padding-left: 15px;
+    padding-bottom: 30px;
+    padding-right: 15px;
+ 
 }
 .baff{
     border-right: 1px solid white;    
 }
+.id{
+    font-size: 25px;
+}
+.btn-menu{
+    height: 30px;
+}
 #itemPizza{
     margin-top: 30px;
+    margin-bottom: 15px;
     background: rgb(24, 24, 24);
     border-radius: 25px;
     border: white 1px solid;
     width: 100%;
 }
 .fondo{
+    
     background-image: url("../../assets/img/PAG1/fondo.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    position: absolute;
+    position: fixed;
+    overflow-y: scroll;
     top: 0px;
     bottom: 0px;
 }
-
+.ty{
+    color: yellow;
+}
 #lista{
     margin-top: 110px;
 }
@@ -92,18 +106,13 @@ li{
     margin-top: 25px;
     margin-bottom: 5px;
 }
-.boton-buscar{
-    width: 20%;
-}
 .barra-busqueda{
-    width: 80%;
+    width: 100%;
 }
 @media screen and (min-width: 800px) {
-    .boton-buscar{
-        width: 10%;
-    }
+   
     .barra-busqueda{
-        width: 90%;
+        width: 100%;
     }
     #itemPizza{
         margin-top: 30px;

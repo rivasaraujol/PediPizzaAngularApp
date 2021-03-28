@@ -5,12 +5,19 @@
         <div id="itemPizzaEdit" class="d-flex-i">
             <div class="IMG-E "><img class="w100" src="{{editPizza.img}}" alt=""></div>
             <div class="dato-e paddin-top-datos">
-                <input class="w90" type="text" name="nombre" id="editnombre" placeholder="nombre" [(ngModel)]="editPizza.nombre">
-                <input class="w90" type="text" name="Descripcion" id="editDescripcion" placeholder="Descripcion" [(ngModel)]="editPizza.descripcion">
-                <input class="w90" type="text" name="cantidad" id="editcantidad" placeholder="Cantidad" [(ngModel)]="editPizza.existencia">
-                <input class="w90" type="text" name="precio" id="editprecio" placeholder="Precio" [(ngModel)]="editPizza.precio">
-                <button class="w30 btnAceptar btndelete" (click)="ActivarEdit(0,0, undefined)">Salir</button>
-                <button class="w30 btnAceptar btndelete" (click)="BorrarPizza()">Eliminar</button>
+                <label class="textwithe" > Nombre </label>
+                <input  type="text" name="nombre" id="editnombre" placeholder="nombre" [(ngModel)]="editPizza.nombre">
+                <br>
+                <label class="textwithe"> Descripcion </label>
+                <input  type="text" name="Descripcion" id="editDescripcion" placeholder="Descripcion" [(ngModel)]="editPizza.descripcion">
+                <br>
+                <label class="textwithe"> Cantidad </label>
+                <input  type="text" name="cantidad" id="editcantidad" placeholder="Cantidad" [(ngModel)]="editPizza.existencia">
+                <br>
+                <label class="textwithe"> Precio </label>
+                <input  type="text" name="precio" id="editprecio" placeholder="Precio" [(ngModel)]="editPizza.precio">
+                <button class="w40 btnAceptar btndelete" (click)="ActivarEdit(0,0, undefined)">Salir</button>
+                <button class="w20 btnAceptar btndelete" (click)="BorrarPizza()">Eliminar</button>
                 <button class="w40 btnAceptar" (click)="ActualizarPizza()">Modificar</button>
             </div>
         </div>
@@ -20,11 +27,18 @@
 <div  [ngClass]="{'oculto': !agregarOpen}" id="editPizza" class="oculto">
     <div id="cartaEdit" >
         <div id="itemPizzaEdit" class="d-flex-i">
-            <div class="IMG-E"><img class="w100" src="./assets/img/PAG2/pizza.png" alt=""></div>
+            <div class="IMG-E"><img class="w100" src="./assets/img/PAG1/pizza.png" alt=""></div>
             <div class="dato-e paddin-top-datos">
+                <label class="textwithe" > Nombre </label>
                 <input type="text" name="nombre" id="nombre" placeholder="nombre" [(ngModel)]="nombre">
+                <br>
+                <label class="textwithe"> Descripcion </label>
                 <input type="text" name="Descripcion" id="Descripcion" placeholder="Descripcion" [(ngModel)]="descripcion">
+                <br>
+                <label class="textwithe"> Cantidad </label>
                 <input type="text" name="cantidad" id="cantidad" placeholder="Cantidad" [(ngModel)]="cantidad">
+                <br>
+                <label class="textwithe"> Precio </label>
                 <input type="text" name="precio" id="precio" placeholder="Precio" [(ngModel)]="precio">
                 <button class="w40 btnAceptar btndelete" (click)="ActivarAgregar()">Salir</button>
                 <button class="w60 btnAceptar" (click)="AgregarPizza()">Agregar</button>
@@ -41,31 +55,29 @@
             <h2>CartaPizzas</h2>
         </div>
         <div  (click)="ActivarMenu()" class="w20">
-            *
+            <img class="btn-menu" src="./assets/img/PAG1/botonmenu.png" alt="">
         </div> 
         <div class="btnAgregar" (click)="ActivarAgregar()">
             <button id="buscar">+</button>
         </div>
         <div class="barra-busqueda">
-            <input type="text" class="Busqueda w100" name="textoBuscar" id="textobuscar" placeholder="Nombre" [(ngModel)]="buscar">
+            <input type="text" class="Busqueda w100" name="textoBuscar" id="textobuscar" placeholder="Nombre" (keyup)="Buscar()" [(ngModel)]="buscar">
         </div>
-        <div class="boton-buscar">
-            <button id="buscar" (click)="Buscar()">B</button>
-        </div>
+        
     </div>
     
     
     <div id="lista" class="w100 d-flex-i">
         <div id="itemPizza" (click)="ActivarEdit(pizza.id, i, pizza)" class="w100 d-flex-i" *ngFor="let pizza of platos; let i = index">
             <div class="w50  baff "><img class="w100" src="{{pizza.img}}" alt=""></div>
-            <div class="w50 paddin-top-datos text-align-left">
+            <div class="w50 paddin-top-datos2 text-align-left">
                 <h6 class="ty">{{pizza.nombre}}</h6>
                 <p class="fz-12 ">{{pizza.descripcion}}</p>
                 <h6 class="ty "> existencia de:  {{pizza.existencia}}</h6>
                 <h6 class="ty "> {{pizza.precio | currency}}</h6>
             </div>
         </div>
-    </div>
+    </div> 
    
 </div>
 

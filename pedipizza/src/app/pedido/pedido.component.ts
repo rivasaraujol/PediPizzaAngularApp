@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ChequeoService } from '../shared/chequeo.service';
 import { PedidosService } from '../shared/pedidos.service';
 import { Pedido, PlatoPedido } from '../shared/tipodatos.model';
 
@@ -15,7 +17,7 @@ export class PedidoComponent implements OnInit {
   public pedidos: Pedido[] = [];
   public busqueda = '';
 
-  constructor(protected pedidosService: PedidosService) {
+  constructor(protected router: Router,protected chequeo: ChequeoService,protected pedidosService: PedidosService) {
     pedidosService.GetPedidos().subscribe((ped: any) => {
       this.pedidosB = ped;
       if (this.pedidosB.length > 0){
@@ -23,17 +25,20 @@ export class PedidoComponent implements OnInit {
           if (o.validado === 1){
             this.pedidos.push(o);
           }
-          if(this.pedidos.length > 0){
-            pedidosService.GetPlatosDelPedido(o.id).subscribe((plat: any) => {
-              this.pedidos[o.id - 1].platosPedidos = plat;
-            })
-          }
         })
+        for ( let i = 0; i < this.pedidos.length; i++){
+          pedidosService.GetPlatosDelPedido(this.pedidos[i].id).subscribe((plat: any) => {
+            this.pedidos[i].platosPedidos = plat;
+          })
+        }
       }
     })
    }
 
   ngOnInit(): void {
+    if(!this.chequeo.LeerGalleta()){
+      this.router.navigate(['']);
+    }
   }
 
   CalcularTotal(platos: PlatoPedido[]){
@@ -46,11 +51,13 @@ export class PedidoComponent implements OnInit {
     return returnValue;
   }
 
-  Search(): void {
+  Buscar(): void {
     this.pedidos = [];
     if (this.busqueda !== ''){
       this.pedidosB.forEach(o => {
-        if (o.validado === 1 && o.nombre && o.nombre.toLocaleLowerCase().includes(this.busqueda.toLocaleLowerCase())){
+        if (o.validado === 1 && ( 
+          o.nombre && o.nombre.toLocaleLowerCase().includes(this.busqueda.toLocaleLowerCase())) ||
+          o.id && o.id.toLocaleString() === this.busqueda){
           this.pedidos.push(o);
         }
       });
