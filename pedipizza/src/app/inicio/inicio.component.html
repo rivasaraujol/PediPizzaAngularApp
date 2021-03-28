@@ -1,0 +1,17 @@
+<div class="cuerpo d-flex text-center">
+    <div class="w100">
+        <img  class="imglogo" src="./assets/img/PAG1/logo.png" alt="">
+    </div>
+    <div class="w80 text-center">
+        <div class="carta">
+            <h1 class="text-white">Login</h1>
+            <input class="w70" id="user" type="text" placeholder="usuario" [(ngModel)]="user">
+            <input class="w70"  id="clave" type="password" placeholder="clave" [(ngModel)]="pass">
+            <div class="w100"></div>
+            <button class="mt10" (click)="Loguear()">Login</button>
+        </div>
+    </div>
+</div>
+<div (click)="ErrorVista()"  [ngClass]="{'oculto': !errorvista}" class="error d-flex-i">
+    <h3>Error al ingresar los datos vuelva a intentarlo</h3>
+</div>  

@@ -1,0 +1,85 @@
+.cuerpo{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: rgb(7, 7, 56);
+    border-radius: 30px;
+}
+.raiz{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.img {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 25px;
+}
+.img img{
+    width: 40%;
+}
+.cuerpo section{
+    width: 80%;
+    text-align: center;
+}
+
+.cuerpo button{
+    margin-top: 30px;
+    width: 50%;
+    margin-bottom: 50px;
+}
+
+section label{
+    color: white;
+}
+section input{
+    width: 100%;
+}
+@media screen and (min-width: 800px) {
+    .cuerpo{
+        width: 60%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        background: rgb(7, 7, 56);
+        border-radius: 30px;
+    }
+    .raiz{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .img {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-bottom: 25px;
+    }
+    .img img{
+        width: 20%;
+    }
+    .cuerpo section{
+        width: 80%;
+        text-align: center;
+    }
+    
+    .cuerpo button{
+        margin-top: 30px;
+        width: 50%;
+    }
+    
+    section label{
+        color: white;
+    }
+    section input{
+        width: 100%;
+    }
+}
