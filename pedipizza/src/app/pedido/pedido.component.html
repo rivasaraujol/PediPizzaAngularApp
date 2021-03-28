@@ -22,7 +22,7 @@
                     <h6 class="ty">{{pedido.nombre}}</h6>
                 </div>
                 <div class="w20">
-                    <h6 class="ty id">#00{{pedido.id}}</h6>
+                    <h6 class="ty id">#{{pedido.id}}</h6>
                 </div>
                 <div class="w100" *ngFor="let pizza of pedido.platosPedidos">
                         {{pizza.nombre}} ({{pizza.cantidad}}) {{pizza.precio * pizza.cantidad | currency}}

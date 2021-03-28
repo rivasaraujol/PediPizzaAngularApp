@@ -7,7 +7,8 @@ import { PedidosService } from '../shared/pedidos.service';
   selector: 'app-carta',
   templateUrl: './carta.component.html',
   styleUrls: ['./carta.component.css']
-})
+}) 
+
 export class CartaComponent implements OnInit {
 
   private i = 0;
@@ -130,15 +131,27 @@ export class CartaComponent implements OnInit {
     this.EliminadoA[pos] = !this.EliminadoA[pos];
     setTimeout(() => 
     {
+      this.platosB.forEach((pizza: any) => {
+        if (pizza.nombre.includes(this.pedido[pos].pizza.nombre)){
+          pizza.existencia +=1;
+        }
+      })
+      this.platos = [];
+      this.platosB.forEach((pizza: any) => {
+        if (pizza.existencia !== 0){
+          this.platos.push(pizza);
+        }
+      })
       this.pedido.splice(pos, 1);
       this.CalcularMontoTotal();
+      
     },
     500); 
     
   }
 
   Pagar(): void {
-    if (this.platos.length > 0){
+    if (this.pedido.length > 0){
       this.router.navigate(['pagar']);
     }
   }
